@@ -1,5 +1,4 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { AppService } from './app.service';
 import { ProdutosModel } from './produtos.models';
 import { ProdutoService } from './produtos.services';
 
