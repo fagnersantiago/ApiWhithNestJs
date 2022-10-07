@@ -4,19 +4,19 @@ import { ProdutosModel } from './produtos.models';
 
 @Injectable()
 export class ProdutoService {
-  produtos: ProdutosModel[] = [
-    new ProdutosModel('Computador', 10),
-    new ProdutosModel('Microondas', 10),
-    new ProdutosModel('Mesa', 10),
-  ];
+  // produtos: ProdutosModel[] = [
+  //   new ProdutosModel('Computador', 10),
+  //   new ProdutosModel('Microondas', 10),
+  //   new ProdutosModel('Mesa', 10),
+  // ];
 
   getAll(): ProdutosModel[] {
-    return this.produtos;
+    return;
   }
 
   create(produtos: ProdutosModel) {
     produtos.id = 100;
-    this.produtos.push(produtos);
-    return this.produtos;
+    // this.produtos.push(produtos);
+    return;
   }
 }
