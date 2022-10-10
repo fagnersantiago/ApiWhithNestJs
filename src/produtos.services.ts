@@ -1,22 +1,22 @@
 /* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/sequelize';
 import { ProdutosModel } from './produtos.models';
+
+type NewType = typeof ProdutosModel;
 
 @Injectable()
 export class ProdutoService {
-  // produtos: ProdutosModel[] = [
-  //   new ProdutosModel('Computador', 10),
-  //   new ProdutosModel('Microondas', 10),
-  //   new ProdutosModel('Mesa', 10),
-  // ];
+  constructor(
+    @InjectModel(ProdutosModel)
+    private produtoModel: typeof ProdutosModel,
+  ) {}
 
-  getAll(): ProdutosModel[] {
-    return;
+  async getAll(): Promise<ProdutosModel[]> {
+    return this.produtoModel.findAll();
   }
 
-  create(produtos: ProdutosModel) {
-    produtos.id = 100;
-    // this.produtos.push(produtos);
-    return;
+  async create(produtos: ProdutosModel) {
+    return this.produtoModel.create(produtos);
   }
 }

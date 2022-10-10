@@ -7,12 +7,12 @@ export class ProdutosController {
   constructor(private produtosService: ProdutoService) {}
 
   @Get()
-  getAll(): ProdutosModel[] {
+  async getAll(): Promise<ProdutosModel[]> {
     return this.produtosService.getAll();
   }
 
   @Post()
-  create(@Body() produto: ProdutosModel) {
+  async create(@Body() produto: ProdutosModel) {
     return this.produtosService.create(produto);
   }
 }
