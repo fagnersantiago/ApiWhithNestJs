@@ -1,10 +1,8 @@
 import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { ProdutosController } from './produtos.controller';
-import { ProdutoService } from './produtos.services';
-import { ProdutosModel } from './produtos.models';
+import { UserController } from './users/users.controller';
+import { UsersService } from './users/users.services';
+import { User } from './users/users.models';
 
 @Module({
   imports: [
@@ -18,9 +16,9 @@ import { ProdutosModel } from './produtos.models';
       autoLoadModels: true,
       synchronize: true,
     }),
-    SequelizeModule.forFeature([ProdutosModel]),
+    SequelizeModule.forFeature([User]),
   ],
-  controllers: [AppController, ProdutosController],
-  providers: [AppService, ProdutoService],
+  controllers: [UserController],
+  providers: [UsersService],
 })
 export class AppModule {}
