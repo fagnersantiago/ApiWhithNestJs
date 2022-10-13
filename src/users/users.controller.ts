@@ -1,23 +1,21 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
-import { User } from './users.models';
-import { UsersService } from './users.services';
-
-interface IUser {
-  name: string;
-  email: string;
-}
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { User } from './users.entites';
 
 @Controller('users')
 export class UserController {
-  constructor(private readonly user: UsersService) {}
+  constructor(@InjectRepository(User) private userEntities: Repository<User>) {}
 
   @Get()
-  public async getAll(): Promise<UsersService[]> {
-    return this.user.findAll();
+  public async getAll(): Promise<User[]> {
+    const listUser = await this.userEntities.find();
+    return listUser;
   }
 
   @Post()
-  public async create(@Body() user: User): Promise<UsersService> {
-    return this.user.create(user);
+  public async create(@Body() user: User): Promise<User> {
+    const userCreated = await this.userEntities.save(user);
+    return userCreated;
   }
 }
