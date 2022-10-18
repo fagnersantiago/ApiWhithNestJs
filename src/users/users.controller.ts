@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './users.entites';
 
-@Controller('users')
+@Controller('/users')
 export class UserController {
   constructor(@InjectRepository(User) private userEntities: Repository<User>) {}
 
@@ -15,7 +15,7 @@ export class UserController {
 
   @Post()
   public async create(@Body() user: User): Promise<User> {
-    const userCreated = await this.userEntities.save(user);
+    const userCreated = await this.userEntities.create(user);
     return userCreated;
   }
 }

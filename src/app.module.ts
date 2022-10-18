@@ -13,6 +13,7 @@ import { User } from './users/users.entites';
       database: process.env.DATABASE,
       entities: [User],
       synchronize: true,
+      autoLoadEntities: true,
     }),
   ],
 })
