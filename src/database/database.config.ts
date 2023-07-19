@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { Clients } from '../entities/users.entites';
+import { Clients } from '../users/entities/users.entites';
 import { config } from 'dotenv';
 config();
 
