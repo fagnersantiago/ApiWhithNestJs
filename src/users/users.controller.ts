@@ -7,13 +7,13 @@ import {
   Delete,
   UseInterceptors,
   UploadedFiles,
-  UploadedFile,
 } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { createReadStream } from 'fs';
 import { UsersService } from './users.services';
 import { Clients } from './entities/users.entites';
 import * as csvParser from 'csv-parser';
+
 @Controller()
 export class UserController {
   constructor(private userService: UsersService) {}
@@ -37,14 +37,22 @@ export class UserController {
 
   @Post('/upload')
   @UseInterceptors(FilesInterceptor('file'))
-  uploadFile(@UploadedFiles() file) {
+  public async uploadFile(@UploadedFiles() file: Express.Multer.File) {
     const result = [];
 
     createReadStream(file.path)
-      .pipe(csvParser())
-      .on('data', (data) => result.push(data))
-      .on('end', () => {
-        console.log(result);
+      .pipe(csvParser({ quote: '"', escape: ';' }))
+      .on('data', (row) => result.push(row))
+      .on('end', async () => {
+        const uploadedData = result.forEach(async (item) => {
+          await this.userService.UP({
+            email: item.email.replace(/"/g, ''),
+            name: item.name.replace(/"/g, ''),
+            password: item.password.replace(/[";]/g, ''),
+          });
+        });
+
+        return uploadedData;
       });
   }
 }

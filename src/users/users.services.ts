@@ -4,6 +4,12 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Clients } from './entities/users.entites';
 
+interface IUpload {
+  id?: number;
+  name: string;
+  email: string;
+  password: string;
+}
 @Injectable()
 export class UsersService {
   constructor(
@@ -35,5 +41,16 @@ export class UsersService {
     }
 
     await this.userRepository.delete((await userId).id);
+  }
+  /* eslint-disable prettier/prettier */
+  public async UP(file: IUpload): Promise<Clients> {
+    const user = this.userRepository.create({
+      email: file.email,
+      name: file.name,
+      password: file.password,
+    });
+
+    await this.userRepository.save(user);
+    return user as Clients;
   }
 }
