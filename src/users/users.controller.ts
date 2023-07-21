@@ -29,7 +29,7 @@ export class UserController {
     const userCreated = await this.userService.create(user);
     return userCreated;
   }
-  /* eslint-disable prettier/prettier */
+
   @Delete('/:id')
   public async delete(@Param('id') id: string): Promise<void> {
     return await this.userService.delete(Number(id));

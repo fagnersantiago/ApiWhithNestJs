@@ -11,4 +11,10 @@ export class Clients {
   email: string;
   @Column()
   password: string;
+  constructor(data?: Partial<Clients>) {
+    this.id = data?.id;
+    this.email = data?.email;
+    this.name = data?.name;
+    this.password = data?.password;
+  }
 }

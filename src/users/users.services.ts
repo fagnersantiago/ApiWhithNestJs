@@ -42,7 +42,7 @@ export class UsersService {
 
     await this.userRepository.delete((await userId).id);
   }
-  /* eslint-disable prettier/prettier */
+
   public async UP(file: IUpload): Promise<Clients> {
     const user = this.userRepository.create({
       email: file.email,
