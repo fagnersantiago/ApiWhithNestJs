@@ -42,10 +42,11 @@ describe('UserController', () => {
     expect(userService).toBeDefined();
   });
 
-  describe('root', () => {
-    it('should return "Hello World!"', async () => {
+  describe('Get all Users', () => {
+    it('should be able return all users', async () => {
       const usersList = await userController.getAll();
 
+      console.log(userList);
       expect(usersList).toEqual(userList);
     });
   });
