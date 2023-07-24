@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Clients } from './entities/users.entites';
@@ -21,6 +21,11 @@ export class UsersService {
     return this.userRepository.find();
   }
 
+  public async getUserById(id: number): Promise<Clients | undefined> {
+    const user = await this.userRepository.findOne({ where: { id: id } });
+    console.log(user);
+    return user;
+  }
   public async create({ name, email, password }): Promise<Clients> {
     const user = this.userRepository.create({
       email,
@@ -32,12 +37,13 @@ export class UsersService {
     console.log(user);
     return user;
   }
-  public async delete(id: number): Promise<void> {
-    const userId = this.userRepository.findOneBy({
-      id,
+
+  public async delete(id: number): Promise<Clients | void> {
+    const userId = await this.userRepository.findOne({
+      where: { id: id },
     });
     if (!userId) {
-      throw new Error('User not found');
+      throw new NotFoundException('Not found');
     }
 
     await this.userRepository.delete((await userId).id);

@@ -31,8 +31,8 @@ export class UserController {
   }
 
   @Delete('/:id')
-  public async delete(@Param('id') id: string): Promise<void> {
-    return await this.userService.delete(Number(id));
+  public async delete(@Param('id') id: number): Promise<Clients | void> {
+    return await this.userService.delete(id);
   }
 
   @Post('/upload')
