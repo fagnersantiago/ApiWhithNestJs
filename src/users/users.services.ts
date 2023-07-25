@@ -21,9 +21,8 @@ export class UsersService {
     return this.userRepository.find();
   }
 
-  public async getUserById(id: number): Promise<Clients | undefined> {
-    const user = await this.userRepository.findOne({ where: { id: id } });
-    console.log(user);
+  public async getUserById(email: string): Promise<Clients | undefined> {
+    const user = await this.userRepository.findOne({ where: { email: email } });
     return user;
   }
   public async create({ name, email, password }): Promise<Clients> {
@@ -46,7 +45,7 @@ export class UsersService {
       throw new NotFoundException('Not found');
     }
 
-    await this.userRepository.delete((await userId).id);
+    await this.userRepository.delete(userId.id);
   }
 
   public async UP(file: IUpload): Promise<Clients> {

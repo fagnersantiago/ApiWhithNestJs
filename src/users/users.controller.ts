@@ -7,14 +7,17 @@ import {
   Delete,
   UseInterceptors,
   UploadedFiles,
+  UseGuards,
 } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { createReadStream } from 'fs';
 import { UsersService } from './users.services';
 import { Clients } from './entities/users.entites';
 import * as csvParser from 'csv-parser';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller()
+@UseGuards(AuthGuard('jwt'))
 export class UserController {
   constructor(private userService: UsersService) {}
 
