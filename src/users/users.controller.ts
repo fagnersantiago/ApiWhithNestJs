@@ -1,3 +1,4 @@
+import { User } from '../swagger/swagger';
 import {
   Body,
   Controller,
@@ -21,8 +22,6 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { User } from 'src/swagger/swagger';
-import { type } from 'os';
 
 @ApiBearerAuth()
 @ApiTags('users')

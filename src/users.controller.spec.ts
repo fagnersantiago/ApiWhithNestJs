@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { UserController } from './users/users.controller';
 import { UsersService } from './users/users.services';
 import { Clients } from './users/entities/users.entites';
+import { hashSync } from 'bcrypt';
 
 const userList: Clients[] = [
   new Clients({
@@ -26,8 +27,8 @@ describe('UserController', () => {
           provide: UsersService,
           useValue: {
             get: jest.fn().mockResolvedValue(userList),
-            create: jest.fn(),
-            delete: jest.fn(),
+            create: jest.fn().mockReturnValue(userList[0]),
+            delete: jest.fn().mockReturnValue(undefined),
           },
         },
       ],
@@ -49,5 +50,27 @@ describe('UserController', () => {
       console.log(userList);
       expect(usersList).toEqual(userList);
     });
+  });
+
+  describe('Create User', () => {
+    it('should be able create a new user', async () => {
+      const user = new Clients({
+        id: 1,
+        name: 'john doe',
+        email: 'email@email',
+        password: '123',
+        hashPassword() {
+          this.password = hashSync(this.password, 10);
+        },
+      });
+
+      await userController.create(user);
+      expect(user).toEqual(userList[0]);
+    });
+  });
+
+  it('should be able Delete user', async () => {
+    const deleted = await userController.delete(1);
+    expect(deleted).toBeUndefined();
   });
 });
