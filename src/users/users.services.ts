@@ -17,35 +17,9 @@ export class UsersService {
     private userRepository: Repository<Clients>,
   ) {}
 
-  public async get(): Promise<Clients[]> {
-    return this.userRepository.find();
-  }
-
   public async getUserById(email: string): Promise<Clients | undefined> {
     const user = await this.userRepository.findOne({ where: { email: email } });
     return user;
-  }
-  public async create({ name, email, password }): Promise<Clients> {
-    const user = this.userRepository.create({
-      email,
-      name,
-      password,
-    });
-
-    await this.userRepository.save(user);
-    console.log(user);
-    return user;
-  }
-
-  public async delete(id: number): Promise<Clients | void> {
-    const userId = await this.userRepository.findOne({
-      where: { id: id },
-    });
-    if (!userId) {
-      throw new NotFoundException('Not found');
-    }
-
-    await this.userRepository.delete(userId.id);
   }
 
   public async UP(file: IUpload): Promise<Clients> {
