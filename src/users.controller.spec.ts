@@ -1,29 +1,25 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { UserController } from './users/users.controller';
 import { CreateUserController } from './users/create/create.user.controller';
 import { CreteUserService } from './users/create/create.user.service';
 import { ListUserController } from './users/list/list.user.controller';
 import { ListUserService } from './users/list/list.user.service';
 import { DeleteUserController } from './users/delete/delete.user.controller';
 import { DeleteUserService } from './users/delete/delete.user.service';
-import { UsersService } from './users/users.services';
+
 import { Clients } from './users/entities/users.entites';
-import { hashSync } from 'bcrypt';
 
 const userList: Clients[] = [
   new Clients({
     id: 1,
     name: 'john doe',
     email: 'email@email',
-    password: hashSync('123', 10),
+    password: '123',
   }),
   new Clients({ id: 2, name: 'mary', email: 'email@email', password: '123' }),
   new Clients({ id: 3, name: 'james', email: 'email@email', password: '123' }),
 ];
 
 describe('UserController', () => {
-  // let userController: UserController;
-  // let userService: UsersService;
   let createUserController: CreateUserController;
   let createUserService: CreteUserService;
   let listUserController: ListUserController;
@@ -95,7 +91,6 @@ describe('UserController', () => {
 
       user.hashPassword();
 
-      console.log(user.password);
       await createUserController.create(user);
       expect(user.id).toBe(1);
       expect(user.name).toBe('john doe');
