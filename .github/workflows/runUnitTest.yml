@@ -2,18 +2,18 @@ name: Run Unit Tests
 
 on: [push]
 
-jobs:  
-  run-unit-test: 
+jobs:
+  run-unit-test:
     name: Run Unit Tests
     run-on: windows-latest
 
     steps:
-      -uses: actions/checkout@v3
-      -uses: actions/setup-node@v3
-       with:
-         node-version: 20
-         cache: 'yarn'
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: 'yarn'
 
-      - run:  yarn install --frozen-lockfile
-      
+      - run: yarn install --frozen-lockfile
+
       - run: yarn test
