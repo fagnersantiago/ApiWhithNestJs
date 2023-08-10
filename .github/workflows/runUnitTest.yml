@@ -17,3 +17,15 @@ jobs:
       - run: yarn install --frozen-lockfile
 
       - run: yarn test
+
+      - name: Build
+      - run: yarn build
+
+      - uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          port: ${{ secrets.SSH_PORT }}
+          key: ${{ secrets.SSH_KEYS }}
+          source: '., !node_modules'
+          target: 'test'
