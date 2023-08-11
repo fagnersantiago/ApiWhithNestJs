@@ -3,8 +3,8 @@ name: Run CI/CD
 on: [push]
 
 jobs:
-  run-tests-and-scp:
-    name: Run Tests and SCP Files
+  Build:
+    name: Build
     runs-on: ubuntu-latest
 
     steps:
@@ -28,7 +28,6 @@ jobs:
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
-          passphrase: 123
           port: ${{ secrets.SSH_PORT }}
           key: ${{ secrets.SSH_KEYS }}
           source: '., !node_modules'
