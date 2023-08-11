@@ -32,3 +32,4 @@ jobs:
           key: ${{ secrets.SSH_KEYS }}
           source: '., !node_modules'
           target: 'test'
+          timeout: 60s
