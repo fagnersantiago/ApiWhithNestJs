@@ -28,6 +28,7 @@ jobs:
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
+          passphrase: 123
           port: ${{ secrets.SSH_PORT }}
           key: ${{ secrets.SSH_KEYS }}
           source: '., !node_modules'
