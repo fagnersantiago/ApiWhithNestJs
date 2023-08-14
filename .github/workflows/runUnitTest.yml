@@ -3,8 +3,8 @@ name: Run CI/CD
 on: [push]
 
 jobs:
-  Build:
-    name: Build
+  Set up job:
+    name: Set up job
     runs-on: ubuntu-latest
 
     steps:
@@ -23,7 +23,7 @@ jobs:
       - name: Run tests
         run: yarn test
 
-      - name: SCP Files
+      - name: Build
         uses: appleboy/scp-action@v0.1.4
         with:
           host: ${{ secrets.SSH_HOST }}
