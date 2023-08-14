@@ -3,8 +3,8 @@ name: Run CI/CD
 on: [push]
 
 jobs:
-  Set up job:
-    name: Set up job
+  Setup:
+    name: Set-up-job
     runs-on: ubuntu-latest
 
     steps:
